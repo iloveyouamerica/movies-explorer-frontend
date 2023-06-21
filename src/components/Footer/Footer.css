@@ -1,3 +1,33 @@
 .footer {
-  background-color: brown;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-top: 1px solid #424242;
+}
+
+.footer__copyright {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #fff;
+}
+
+.footer__nav {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.footer__link {
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: right;
+  color: #fff;
 }

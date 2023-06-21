@@ -1,9 +1,14 @@
 import React from 'react';
 import './Main.css';
+import Promo from '../Promo/Promo';
+import AboutProject from '../AboutProject/AboutProject';
 
 function Main() {
   return (
-    <main className="main">Main</main>
+    <main className="main">
+      <Promo />
+      <AboutProject />
+    </main>
   );
 }
 
