@@ -1,9 +1,25 @@
 .footer {
+  padding: 79px 70px 20px;
+}
+
+.footer__title {
+  margin: 0;
+  padding: 0 0 20px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #8b8b8b;
+}
+
+.footer__wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px 0;
-  border-top: 1px solid #424242;
+  padding: 20px 0 0;
+  border-top: 1px solid #fff;
 }
 
 .footer__copyright {

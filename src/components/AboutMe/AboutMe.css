@@ -1,0 +1,75 @@
+.about-me {
+  padding: 110px 70px 0;
+}
+
+.about-me__title {
+  margin: 0;
+  padding: 0 0 23px;
+  border-bottom: 1px solid #dadada;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.about-me__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 66px 0 0;
+}
+
+.about-me__column-wrapper {
+  max-width: 600px;
+}
+
+.about-me__name {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.about-me__career {
+  margin: 0;
+  padding: 18px 0 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.about-me__description {
+  margin: 0;
+  padding: 26px 0 99px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #fff;
+}
+
+.about-me_photo {
+  display: block;
+  max-width: 270px;
+}
+
+.about-me__github {
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+}
