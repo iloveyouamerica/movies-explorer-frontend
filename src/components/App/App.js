@@ -1,22 +1,17 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Header from '../Header/Header.js';
+import { Routes, Route } from 'react-router-dom';
 import Main from '../Main/Main.js';
-import Footer from '../Footer/Footer.js';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
-  // Получение текущего пути с помощью useLocation
-  const location = useLocation();
-
   return (
     <div className="app">
-      {location.pathname !== '/signup' && location.pathname !== '/signin' && <Header />}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/movies" element={<Movies />} />
@@ -24,8 +19,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
-      {location.pathname !== '/signup' && location.pathname !== '/signin' && <Footer />}
     </div>
   );
 }

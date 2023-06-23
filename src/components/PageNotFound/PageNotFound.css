@@ -1,0 +1,37 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.not-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 246px 0;
+}
+
+.not-page__title {
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 140px;
+  font-family: Inter;
+}
+
+.not-page__message {
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-family: Inter;
+}
+
+.not-page__link-back {
+  text-decoration: none;
+  color: #4285F4;
+  text-align: center;
+  font-size: 14px;
+  font-family: Inter;
+  padding: 184px 0 0;
+}

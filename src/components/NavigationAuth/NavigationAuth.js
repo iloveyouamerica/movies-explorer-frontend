@@ -6,10 +6,10 @@ function NavigationAuth() {
   return (
     <ul className="navigation-auth">
       <li className="navigation-auth__item">
-        <Link to="signup" className="navigation-auth__link">Регистрация</Link>
+        <Link to="/signup" className="navigation-auth__link">Регистрация</Link>
       </li>
       <li className="navigation-auth__item">
-        <Link to="signin" className="navigation-auth__link navigation-auth__link_style-button">Войти</Link>
+        <Link to="/signin" className="navigation-auth__link navigation-auth__link_style-button">Войти</Link>
       </li>
     </ul>
   );
