@@ -1,8 +1,10 @@
 @import url(./vendor/normalize.css);
 
 body {
-  /* margin: 0;
-  padding: 0; */
   background-color: #202020;
   color: #fff;
+}
+
+.main {
+  flex: 1;
 }

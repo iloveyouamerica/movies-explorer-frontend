@@ -36,7 +36,7 @@ function Profile() {
         </form>
         <Link to="/" className="profile__logout">Выйти из аккаунта</Link>
       </section>
-    </main>
+      </main>
   );
 }
 

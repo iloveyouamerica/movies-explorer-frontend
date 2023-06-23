@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import './Header.css';
+import Logo from "../Logo/Logo";
 import NavigationAuth from "../NavigationAuth/NavigationAuth";
 
 function Header() {
   return (
     <header className="header">
-      <Link to="/" className="header__logo" />
+      <Logo />
       <nav className="header__navigation">
         <NavigationAuth />
       </nav>
