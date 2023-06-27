@@ -1,0 +1,51 @@
+.navigation-main {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-main__menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.navigation-main__menu-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.navigation-main__account {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 17px;
+  width: 100px;
+  height: 32px;
+  color: #fff;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.navigation-main__account-image {
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #313131;
+  background-image: url(../../images/account-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -8,7 +8,7 @@ function PageNotFound() {
       <section className="not-page">
         <h1 className="not-page__title">404</h1>
         <span className="not-page__message">Страница не найдена</span>
-        <Link to="" className="not-page__link-back">Назад</Link>
+        <Link to="/" className="not-page__link-back">Назад</Link>
       </section>
     </main>
   );

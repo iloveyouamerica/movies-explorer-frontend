@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
+import moviesCardList from '../../utils/moviesList'; // карточки фильмов (имитация БД)
 
 function SavedMovies() {
   return (
@@ -11,7 +12,7 @@ function SavedMovies() {
       <Header />
       <main className="main">
         <SearchForm />
-        <MoviesCardList />
+        <MoviesCardList moviesCardList={moviesCardList} cardType={"delete"} />
       </main>
       <Footer />
     </>

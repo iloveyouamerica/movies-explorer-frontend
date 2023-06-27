@@ -52,18 +52,24 @@
   outline: none;
 }
 
+.profile__form-input_no-edit {
+  pointer-events: none;
+}
+
 .profile__form-input-error {
   display: block;
   height: 17px;
 }
 
-.profile__form-input-error:nth-last-child(2) {
-  padding: 0 0 220px;
+.profile__form-change-wrapper {
+  padding: 220px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.profile__form-submit {
-  display: block;
-  margin: 0 auto;
+.profile__form-change {
+  padding: 0;
   border: none;
   background-color: transparent;
   color: #fff;
@@ -74,13 +80,47 @@
 }
 
 .profile__logout {
-  text-decoration: none;
-  display: block;
-  margin: 0 auto;
-  padding: 16px 0 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
   color: #ee3465;
   text-align: center;
   font-size: 13px;
   font-family: Inter;
   font-weight: 500;
+  cursor: pointer;
+}
+
+.profile__form-submit-wrapper {
+  padding: 189px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile__form-submit-error {
+  height: 14px;
+  color: #FF004C;
+  text-align: center;
+  font-size: 11px;
+  font-family: Inter;
+}
+
+.profile__form-submit {
+  padding: 15px 0;
+  width: 100%;
+  border-radius: 3px;
+  border: none;
+  background-color: #3456f3;
+  color: #fff;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .3s;
+}
+
+.profile__form-submit_no-active {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
 }
