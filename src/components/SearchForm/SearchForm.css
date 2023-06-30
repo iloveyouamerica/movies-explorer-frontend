@@ -24,7 +24,7 @@
 }
 
 .search-film__button {
-  width: 70px;
+  min-width: 70px;
   height: 44px;
   padding: 13px 5px;
   color: #fff;
@@ -67,4 +67,25 @@
   font-size: 12px;
   font-family: Inter;
   line-height: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .search-film {
+    padding: 80px 30px 0;
+  }
+}
+
+@media screen and (max-width: 498px) {
+  .search-film {
+    padding: 81px 14px 0;
+  }
+  
+  .search-film__input {
+    padding: 13px 16px;
+    font-size: 12px;
+  }
+
+  .search-film__button {
+    font-size: 12px;
+  }
 }

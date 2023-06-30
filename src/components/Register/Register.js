@@ -9,13 +9,15 @@ function Register() {
     <main className="main">
       <section className="register">
         <div className="register__wrapper">
-          <Logo />
+          <div className="register__wrapper-logo">
+            <Logo  />
+          </div>
           <h1 className="register__title">Добро пожаловать!</h1>
           <FormAuth submitTitle="Зарегистрироваться" />
-          <div className="register__under-form-link-wrapper">
-            <span className="register__login-text">Уже зарегистрированы?</span>
-            <Link to="/signin" className="register__login-link">Войти</Link>
-          </div>
+        </div>
+        <div className="register__under-form-link-wrapper">
+          <span className="register__login-text">Уже зарегистрированы?</span>
+          <Link to="/signin" className="register__login-link">Войти</Link>
         </div>
       </section>
     </main>

@@ -59,3 +59,35 @@
   font-size: 11px;
   font-family: Inter;
 }
+
+@media screen and (max-width: 768px) {
+  .movie-card {
+    width: 339px;
+  }
+
+  .movie-card__image {
+    width: 339px;
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 498px) {
+  .movie-card {
+    width: 100%;
+  }
+
+  .movie-card__image {
+    width: 100%;
+    height: auto;
+  }
+
+  .movie-card__title {
+    padding: 5px 0 0;
+    font-size: 12px;
+  }
+
+  .movie-card__duration {
+    font-size: 10px;
+    
+  }
+}

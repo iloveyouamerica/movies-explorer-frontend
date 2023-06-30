@@ -54,3 +54,13 @@
   color: #fff;
   cursor: pointer;
 }
+
+@media screen and (max-width: 510px) {
+  .form-auth {
+    flex: 1;
+  }
+
+  .form-auth__submit {
+    font-size: 12px;
+  }
+}

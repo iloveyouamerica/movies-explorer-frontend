@@ -22,6 +22,8 @@
 .promo__description {
   margin: 0;
   padding: 36px 0 146px;
+  font-size: 13px;
+  font-family: Inter;
 }
 
 .promo__button {
@@ -29,6 +31,10 @@
   border-radius: 3px;
   background-color: transparent;
   color: #fff;
+  font-size: 12px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 16px;
   padding: 10px 20px;
   cursor: pointer;
 }
@@ -40,4 +46,56 @@
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 1120px) {
+  .promo {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding: 122px 50px 76px;
+  }
+
+  .promo__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+  }
+
+  .promo__title {
+    text-align: center;
+    padding: 48px 0 0;
+    font-size: 40px;
+    line-height: 50px;
+  }
+
+  .promo__description {
+    padding: 22px 0 92px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 498px) {
+  .promo {
+    padding: 70px 10px 30px;
+  }
+
+  .promo__image {
+    width: 204px;
+    height: 202px;
+  }
+
+  .promo__title {
+    text-align: center;
+    padding: 44px 0 0;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -1.2px;
+  }
+
+  .promo__description {
+    padding: 24px 20px 80px;
+    text-align: center;
+  }
 }

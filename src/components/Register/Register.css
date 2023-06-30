@@ -1,9 +1,11 @@
 .register {
   padding: 70px 0 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .register__wrapper {
-  max-width: 396px;
+  width: 396px;
   margin: auto;
 }
 
@@ -37,4 +39,38 @@
   font-size: 14px;
   font-family: Inter;
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .register {
+    flex: 1;
+    padding: 56px 30px 30px;
+  }
+
+  .register__wrapper {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .register__wrapper-logo {
+    width: 38px;
+    margin: auto;
+  }
+
+  .register__title {
+    padding: 50px 0 80px;
+    text-align: center;
+  }
+
+  .register__login-text, .register__login-link {
+    font-size: 12px;
+  }
 }

@@ -8,8 +8,10 @@ function Login() {
   return (
     <main className="main">
       <section className="login">
-      <div className="login__wrapper">
-          <Logo />
+        <div className="login__wrapper">
+          <div className="login__wrapper-logo">
+            <Logo />
+          </div>
           <h1 className="login__title">Рады видеть!</h1>
           <FormAuth submitTitle="Войти" />
           <div className="login__under-form-link-wrapper">

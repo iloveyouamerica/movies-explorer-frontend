@@ -35,3 +35,58 @@
 .portfolio__link:last-child {
   border: none;
 }
+
+@media screen and (max-width: 1120px) {
+  .portfolio {
+    padding: 91px 50px 90px;
+  }
+
+  .portfolio__title {
+    padding: 0 0 30px;
+  }
+
+  .portfolio__link {
+    padding: 20px 0 20px;
+    font-size: 28px;
+    line-height: 50px;
+    letter-spacing: -1.12px;
+  }
+}
+
+@media screen and (max-width: 562px) {
+  .portfolio__link {
+    padding: 20px 0 19px;
+    font-size: 18px;
+    font-family: Inter;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+    background-size: 18px 28px;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .portfolio {
+    padding: 91px 30px;
+  }
+}
+
+@media screen and (max-width: 498px) {
+  .portfolio {
+    padding: 91px 14px;
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 0 0 20px;
+  }
+
+  /* .portfolio__link {
+    padding: 20px 0 19px;
+    font-size: 18px;
+    font-family: Inter;
+    line-height: 28px;
+    letter-spacing: -0.72px;
+    background-size: 18px 28px;
+  } */
+}

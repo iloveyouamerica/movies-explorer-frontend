@@ -82,32 +82,34 @@ function Profile() {
             method="POST"
             name="profile-form"
             onSubmit={handleProfileFormSubmit} noValidate>
-            <div className="profile__form-input-wrapper">
-              <label className="profile__form-label">Имя</label>
-              <input
-                className={`profile__form-input ${!isProfileEdit ? 'profile__form-input_no-edit' : ''}`}
-                type="text"
-                name="profile-name"
-                minLength="2"
-                maxLength="30"
-                value={userName}
-                onChange={handleChangeUserName}
-                required />
+            <div className="profile__form-container">
+              <div className="profile__form-input-wrapper">
+                <label className="profile__form-label">Имя</label>
+                <input
+                  className={`profile__form-input ${!isProfileEdit ? 'profile__form-input_no-edit' : ''}`}
+                  type="text"
+                  name="profile-name"
+                  minLength="2"
+                  maxLength="30"
+                  value={userName}
+                  onChange={handleChangeUserName}
+                  required />
+              </div>
+              <span className="profile__form-input-error"></span>
+              <div className="profile__form-input-wrapper">
+                <label className="profile__form-label">E-mail</label>
+                <input
+                  className={`profile__form-input ${!isProfileEdit ? 'profile__form-input_no-edit' : ''}`}
+                  type="email"
+                  name="profile-email"
+                  minLength="2"
+                  maxLength="100"
+                  value={userEmail}
+                  onChange={handleChangeUserEmail}
+                  required />
+              </div>
+              <span className="profile__form-input-error"></span>
             </div>
-            <span className="profile__form-input-error"></span>
-            <div className="profile__form-input-wrapper">
-              <label className="profile__form-label">E-mail</label>
-              <input
-                className={`profile__form-input ${!isProfileEdit ? 'profile__form-input_no-edit' : ''}`}
-                type="email"
-                name="profile-email"
-                minLength="2"
-                maxLength="100"
-                value={userEmail}
-                onChange={handleChangeUserEmail}
-                required />
-            </div>
-            <span className="profile__form-input-error"></span>
             {isProfileEdit ?
               (<div className="profile__form-submit-wrapper">
                 <span className="profile__form-submit-error"></span>

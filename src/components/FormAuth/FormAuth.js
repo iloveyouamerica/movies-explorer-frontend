@@ -34,7 +34,7 @@ function FormAuth({ submitTitle }) {
     }
 
     if (!formElement.validity.valid) {
-      spanError.textContent = formElement.validationMessage;
+      spanError.textContent = formElement.validationMessage.split('.')[0];
     } else {
       spanError.textContent = '';
     }

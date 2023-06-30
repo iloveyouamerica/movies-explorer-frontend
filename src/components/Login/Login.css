@@ -1,9 +1,11 @@
 .login {
   padding: 70px 0 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .login__wrapper {
-  max-width: 396px;
+  width: 396px;
   margin: auto;
 }
 
@@ -37,4 +39,38 @@
   font-size: 14px;
   font-family: Inter;
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .login {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .login {
+    flex: 1;
+    padding: 56px 30px 30px;
+  }
+
+  .login__wrapper {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login__wrapper-logo {
+    width: 38px;
+    margin: auto;
+  }
+
+  .login__title {
+    padding: 50px 0 80px;
+    text-align: center;
+  }
+
+  .login__login-text, .login__login-link {
+    font-size: 12px;
+  }
 }

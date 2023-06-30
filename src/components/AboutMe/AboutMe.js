@@ -22,7 +22,7 @@ function AboutMe() {
             target="_blank"
             className="about-me__github">Github</Link>
         </div>
-        <div className="about-me__column-wrapper">
+        <div className="about-me__photo-wrapper">
           <img
             src={myPhoto}
             alt="личная фотография веб-разработчика и выпускника Яндекс.Практикум"

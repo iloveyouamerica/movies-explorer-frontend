@@ -13,10 +13,29 @@
 .navigation-auth__link {
   text-decoration: none;
   color: #fff;
+  font-size: 12px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 16px;
 }
 
 .navigation-auth__link_style-button {
   padding: 8px 20px;
   border-radius: 3px;
   background-color: #2BE080;
+  color: #000;
+  font-size: 12px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 320px) {
+  .navigation-auth__link {
+    font-size: 10px;
+  }
+
+  .navigation-auth__link_style-button {
+    font-size: 10px;
+  }
 }
