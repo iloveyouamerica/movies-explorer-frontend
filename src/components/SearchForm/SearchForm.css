@@ -18,7 +18,7 @@
   background: #2f2f2f;
   color: #8b8b8b;
   font-size: 14px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   line-height: 18px;
   outline: none;
 }
@@ -30,7 +30,7 @@
   color: #fff;
   text-align: center;
   font-size: 12px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
   line-height: 18px;
   border-radius: 40px;
@@ -65,7 +65,7 @@
 .search-film__filter-title {
   color: #fff;
   font-size: 12px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   line-height: 18px;
 }
 

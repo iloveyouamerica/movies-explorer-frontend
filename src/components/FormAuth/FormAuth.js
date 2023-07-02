@@ -1,17 +1,16 @@
 import { React, useState} from 'react';
 import './FormAuth.css';
-import { useLocation } from 'react-router-dom';
 
-function FormAuth({ submitTitle }) {
-  const location = useLocation();
+function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
+  const [formValidity, setFormValidity] = useState(); // состояние валидации формы
+  const [formData, setFormData] = useState({}); // значения полей формы
 
-  const [formValidity, setFormValidity] = useState();
-
+  // отправка формы
   const handleFormSubmit = (event) => {
     event.preventDefault();
     
-    if(formValidity) { // если форма валидная, то отправляем на сервер
-      alert("wooohooo");
+    if(formValidity) { // если форма валидная
+      onSubmit(formData);
     }
   };
 
@@ -23,6 +22,7 @@ function FormAuth({ submitTitle }) {
     const form = document.querySelector(".form-auth");
     const submitBtn = document.querySelector('.form-auth__submit');
 
+    // активация кнопки submit
     if (form.checkValidity()) {
       setFormValidity(true);
       submitBtn.removeAttribute('disabled');
@@ -33,17 +33,24 @@ function FormAuth({ submitTitle }) {
       submitBtn.classList.remove('form-auth__submit_active');
     }
 
+    // вывод ошибок валидации инпутов
     if (!formElement.validity.valid) {
       spanError.textContent = formElement.validationMessage.split('.')[0];
     } else {
       spanError.textContent = '';
     }
+
+    // установка значений инпутов формы
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [formElement.name]: formElement.value,
+    }));
   };
 
   return (
     <form action="" method="POST" className="form-auth" onChange={handleFormChange} onSubmit={handleFormSubmit} noValidate>
       <div className="form-auth__area-wrapper">
-        {location.pathname !== '/signin' && (
+        {hasNameInput && (
           <>
             <label htmlFor="input-name" className="form-auth__input-label">Имя</label>
             <input

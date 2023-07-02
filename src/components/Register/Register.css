@@ -14,7 +14,7 @@
   padding: 40px 0;
   color: #fff;
   font-size: 24px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
 }
 
@@ -30,15 +30,20 @@
   color: #8b8b8b;
   text-align: center;
   font-size: 14px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
 }
 
 .register__login-link {
   color: #4285f4;
   text-align: center;
   font-size: 14px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   text-decoration: none;
+  transition: opacity .3s;
+}
+
+.register__login-link:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 768px) {

@@ -5,6 +5,11 @@ import Logo from '../Logo/Logo';
 import FormAuth from '../FormAuth/FormAuth';
 
 function Register() {
+  function handleRegisterSubmit(formData) {
+    // console.log(`Компонент регистер принял: ${formData}`);
+    console.log(formData);
+  }
+
   return (
     <main className="main">
       <section className="register">
@@ -13,7 +18,7 @@ function Register() {
             <Logo  />
           </div>
           <h1 className="register__title">Добро пожаловать!</h1>
-          <FormAuth submitTitle="Зарегистрироваться" />
+          <FormAuth onSubmit={handleRegisterSubmit} hasNameInput={true} submitTitle="Зарегистрироваться" />
         </div>
         <div className="register__under-form-link-wrapper">
           <span className="register__login-text">Уже зарегистрированы?</span>

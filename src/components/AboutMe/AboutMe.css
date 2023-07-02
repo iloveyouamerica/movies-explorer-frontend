@@ -72,6 +72,11 @@
   font-size: 14px;
   line-height: 17px;
   color: #fff;
+  transition: opacity .3s;
+}
+
+.about-me__github:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 1120px) {

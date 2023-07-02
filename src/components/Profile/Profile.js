@@ -116,7 +116,7 @@ function Profile() {
                 <button
                   type="submit"
                   className={`profile__form-submit ${
-                  formValidity ? '' : 'profile__form-submit_no-active'}`}
+                  formValidity ? 'profile__form-submit_active' : ''}`}
                   disabled>Сохранить</button>
               </div>) :
               (<div className="profile__form-change-wrapper">

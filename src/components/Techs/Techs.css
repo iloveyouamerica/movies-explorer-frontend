@@ -7,7 +7,7 @@
   margin: 0;
   padding: 0 0 23px;
   border-bottom: 1px solid #dadada;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 22px;
@@ -19,7 +19,7 @@
 .techs__content-title {
   margin: 0;
   padding: 90px 0 0;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
@@ -33,7 +33,7 @@
 .techs__content-description {
   margin: 0;
   padding: 26px 0 0;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -59,7 +59,7 @@
 .techs__wrap-item {
   background-color: #303030;
   border-radius: 10px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

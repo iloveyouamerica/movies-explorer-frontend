@@ -32,9 +32,14 @@
   text-decoration: none;
   color: #fff;
   font-size: 13px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
   line-height: 18px;
+  transition: opacity .3s;
+}
+
+.navigation-main__menu-link:hover {
+  opacity: .8;
 }
 
 .navigation-main__account {
@@ -48,9 +53,14 @@
   height: 32px;
   color: #fff;
   font-size: 14px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
   line-height: 16px;
+  transition: opacity .3s;
+}
+
+.navigation-main__account:hover {
+  opacity: .8;
 }
 
 .navigation-main__account-image {

@@ -7,7 +7,7 @@
   color: #fff;
   text-align: center;
   font-size: 24px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
 }
 
@@ -31,7 +31,7 @@
   width: 20%;
   color: #fff;
   font-size: 11px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
   padding: 0 0 16px;
 }
@@ -46,7 +46,7 @@
   color: #fff;
   text-align: right;
   font-size: 11px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   outline: none;
 }
 
@@ -73,8 +73,13 @@
   color: #fff;
   text-align: center;
   font-size: 13px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   cursor: pointer;
+  transition: opacity .3s;
+}
+
+.profile__form-change:hover {
+  opacity: .8;
 }
 
 .profile__logout {
@@ -84,9 +89,14 @@
   color: #ee3465;
   text-align: center;
   font-size: 13px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
   cursor: pointer;
+  transition: opacity .3s;
+}
+
+.profile__logout:hover {
+  opacity: .9;
 }
 
 .profile__form-submit-wrapper {
@@ -101,7 +111,7 @@
   color: #FF004C;
   text-align: center;
   font-size: 11px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
 }
 
 .profile__form-submit {
@@ -109,18 +119,22 @@
   width: 100%;
   border-radius: 3px;
   border: none;
-  background-color: #3456f3;
-  color: #fff;
+  background-color: #f8f8f8;
+  color: #c2c2c2;
   font-size: 14px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
+}
+
+.profile__form-submit_active {
+  background-color: #4285f4;
+  color: #fff;
   cursor: pointer;
   transition: background .3s;
 }
 
-.profile__form-submit_no-active {
-  background-color: #f8f8f8;
-  color: #c2c2c2;
+.profile__form-submit_active:hover {
+  background-color: #659cf5;
 }
 
 @media screen and (max-width: 498px) {
