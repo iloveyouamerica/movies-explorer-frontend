@@ -17,6 +17,11 @@
   font-family: 'Inter', 'Arial', sans-serif;
   font-weight: 500;
   line-height: 16px;
+  transition: opacity .3s;
+}
+
+.navigation-auth__link:hover {
+  opacity: .8;
 }
 
 .navigation-auth__link_style-button {
