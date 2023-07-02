@@ -78,7 +78,7 @@ function Profile() {
           <h1 className="profile__name">Привет, {userData.userName}!</h1>
           <form
             className="profile__form"
-            action=""
+            action="#"
             method="POST"
             name="profile-form"
             onSubmit={handleProfileFormSubmit} noValidate>

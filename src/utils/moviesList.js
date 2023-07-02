@@ -7,7 +7,7 @@ const moviesCardList = [
     title: 'Титаник',
     likes: [11, 22, 33],
     duration: '1ч 42м',
-    owner: 33,
+    owner: 11,
   },
   {
     image: 'https://static.life.ru/publications/2021/12/20/229849106405.39178.jpeg',
@@ -21,7 +21,7 @@ const moviesCardList = [
     title: 'Титаник восстание',
     likes: [11],
     duration: '1ч 42м',
-    owner: 33,
+    owner: 11,
   },
   {
     image: 'https://www.soyuz.ru/public/uploads/files/5/7153800/1005x558_20171103122904f765aa647d.png',
@@ -35,7 +35,7 @@ const moviesCardList = [
     title: 'Титаник',
     likes: [],
     duration: '1ч 42м',
-    owner: 33,
+    owner: 11,
   },
 ];
 

@@ -26,7 +26,7 @@ function AboutMe() {
           <img
             src={myPhoto}
             alt="личная фотография веб-разработчика и выпускника Яндекс.Практикум"
-            className="about-me_photo" />
+            className="about-me__photo" />
         </div>
       </div>
     </section>

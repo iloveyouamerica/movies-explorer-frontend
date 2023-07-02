@@ -48,7 +48,7 @@ function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
   };
 
   return (
-    <form action="" method="POST" className="form-auth" onChange={handleFormChange} onSubmit={handleFormSubmit} noValidate>
+    <form action="#" method="POST" className="form-auth" onChange={handleFormChange} onSubmit={handleFormSubmit} noValidate>
       <div className="form-auth__area-wrapper">
         {hasNameInput && (
           <>

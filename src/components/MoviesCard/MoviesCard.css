@@ -3,6 +3,11 @@
   overflow: hidden;
 }
 
+.movie-card__link {
+  text-decoration: none;
+  display: block;
+}
+
 .movie-card__image {
   width: 270px;
   height: 151px;

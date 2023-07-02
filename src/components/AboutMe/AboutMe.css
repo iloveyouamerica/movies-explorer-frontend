@@ -59,7 +59,7 @@
   color: #fff;
 }
 
-.about-me_photo {
+.about-me__photo {
   display: block;
   max-width: 270px;
 }
@@ -106,7 +106,7 @@
     line-height: 18px;
   }
 
-  .about-me_photo {
+  .about-me__photo {
     max-width: 255px;
   }
 }
@@ -128,7 +128,7 @@
     justify-content: center;
   }
 
-  .about-me_photo {
+  .about-me__photo {
     max-width: 100%;
   }
 
@@ -161,7 +161,7 @@
     max-width: 100%;
   }
 
-  .about-me_photo {
+  .about-me__photo {
     width: 100%;
   }
 
@@ -181,5 +181,4 @@
     font-size: 11px;
     line-height: 20px;
   }
-
 }

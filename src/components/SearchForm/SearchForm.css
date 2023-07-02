@@ -23,6 +23,10 @@
   outline: none;
 }
 
+.search-film__input:focus {
+  outline: 1px solid #ee3465;
+}
+
 .search-film__button {
   min-width: 70px;
   height: 44px;
@@ -37,6 +41,11 @@
   background: #4285F4;
   border: none;
   cursor: pointer;
+  transition: background .3s;
+}
+
+.search-film__button:hover {
+  background-color: #659df7;
 }
 
 .search-film__filter-wrapper {

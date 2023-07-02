@@ -11,7 +11,7 @@ function SearchForm() {
 
   return (
     <section className="search-film">
-      <form action="" method="POST" className="search-film__form">
+      <form action="#" method="POST" className="search-film__form">
         <input type="text" name="film-name" className="search-film__input" placeholder="Фильм" required />
         <button type="submit" className="search-film__button">Найти</button>
       </form>

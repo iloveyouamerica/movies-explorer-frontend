@@ -9,7 +9,7 @@ function MoviesCardList(props) {
   const userData = useContext(UserContext);
 
   return (
-    <section className="moives-card">
+    <section className="movies-card">
       <ul className="movies-card__list">
         {props.moviesCardList.map((card, i) => (
           <MoviesCard
@@ -26,7 +26,10 @@ function MoviesCardList(props) {
       </ul>
       <div className="movies-card__more-wrapper">
         { props.moviesCardList.length > 0 ?
-          <button type="button" className="movies-card__more-btn">Ещё</button>
+          <button
+            type="button"
+            className="movies-card__more-btn"
+            aria-label="Показать больше результатов поиска">Ещё</button>
           : '' }
       </div>
     </section>
