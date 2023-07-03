@@ -1,0 +1,11 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+
+body {
+  background-color: #202020;
+  color: #fff;
+}
+
+.main {
+  flex: 1;
+}

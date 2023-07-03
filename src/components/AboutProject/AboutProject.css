@@ -1,0 +1,137 @@
+.about-project {
+  padding: 110px 70px;
+}
+
+.about-project__title {
+  margin: 0;
+  padding: 0 0 23px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 20px;
+  color: #fff;
+  border-bottom: 1px solid #dadada;
+}
+
+.about-project__text {
+  padding: 70px 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto, 550px));
+  column-gap: 40px;
+  row-gap: 26px;
+}
+
+.about-project__text-title {
+  margin: 0;
+  color: #fff;
+  font-weight: 400;
+  font-size: 20px;
+  font-family: 'Inter';
+  letter-spacing: -0.8px;
+}
+
+.about-project__text-description {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Inter';
+  line-height: 20px;
+}
+
+.about-project__text-item-three {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.about-project__progress {
+  padding: 110px 0 0;
+  display: grid;
+  /* grid-template-columns: 228px 1fr; */
+  grid-template-columns: 20% 80%;
+  grid-template-rows: repeat(2, 36px);
+}
+
+.about-project__progress-backend, .about-project__progress-frontend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Inter';
+  font-weight: 500;
+  line-height: 17px;
+}
+
+.about-project__progress-backend_color {
+  background-color: #3ddc84;
+  color: #000;
+}
+
+.about-project__progress-frontend_color {
+  background-color: #303030;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__text {
+    grid-template-columns: repeat(2, minmax(auto, 550px));
+    column-gap: 30px;
+    row-gap: 22px;
+  }
+
+  .about-project__progress {
+    padding: 110px 0 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    grid-template-rows: repeat(2, 36px);
+  }
+}
+
+@media screen and (max-width: 498px) {
+  .about-project {
+    padding: 60px 18px 59px;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding: 0 0 28px;
+  }
+
+  .about-project__text {
+    padding: 60px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-project__text-title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .about-project__text-title:last-of-type {
+    padding: 40px 0 0;
+  }
+
+  .about-project__text-description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-project__progress {
+    padding: 60px 0 0;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: repeat(2, 35px);
+  }
+
+  .about-project__progress-backend, .about-project__progress-frontend {
+    font-size: 11px;
+  }
+}

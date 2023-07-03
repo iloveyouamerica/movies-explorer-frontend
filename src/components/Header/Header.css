@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 44px;
+  padding: 18px 70px;
+}
+
+.header_background-main {
+  background-color: #073042;
+}
+
+.header__logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+  background-image: url('../../images/logo.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: inherit;
+}
+
+.header__navigation {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 1120px) {
+  .header {
+    padding: 15px 30px;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 498px) {
+  .header {
+    padding: 18px 14px;
+  }
+}
