@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 function MoviesCard(props) {
 
   function handleClickLikeCard(event) {
+    event.preventDefault();
     const cardButton = event.target;
     cardButton.classList.toggle('movie-card__button-like_active');
   }
@@ -16,12 +17,16 @@ function MoviesCard(props) {
 
   return (
     <li className="movie-card">
-      <Link to="#" className="movie-card__link">
+      <Link to={props.trailerLink} className="movie-card__link" target="_blank">
         <img src={props.img} className="movie-card__image" alt={props.title} />
         <div className="movie-card__wrapper">
           <h2 className="movie-card__title">{props.title}</h2>
           {props.typeButton === 'like' ? 
-            (props.likes.find((user) => user === props.userData.userId) ? 
+            (<button
+            type="button"
+            className="movie-card__button movie-card__button-like"
+            onClick={handleClickLikeCard}></button>)
+            /* (props.likes.find((user) => user === props.userData.userId) ? 
               (<button
                 type="button"
                 className="movie-card__button movie-card__button-like movie-card__button-like_active"
@@ -30,7 +35,7 @@ function MoviesCard(props) {
                 type="button"
                 className="movie-card__button movie-card__button-like"
                 onClick={handleClickLikeCard}></button>)
-            )
+            ) */
             : (props.owner === props.userData.userId ? 
               (<button
                 type="button"

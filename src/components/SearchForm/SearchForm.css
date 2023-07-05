@@ -24,7 +24,7 @@
 }
 
 .search-film__input:focus {
-  outline: 1px solid #ee3465;
+  outline: 1px solid #fff; /*#ee3465;*/
 }
 
 .search-film__button {
@@ -48,8 +48,19 @@
   background-color: #659df7;
 }
 
+.search-film__form-error {
+  display: block;
+  height: 12px;
+  color: #ee3465;
+  font-size: 10px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
 .search-film__filter-wrapper {
-  padding: 30px 0 39px;
+  padding: 18px 0 39px; /*30px 0 39px;*/
   border-bottom: 1px solid #424242;
   display: flex;
   flex-direction: row;
