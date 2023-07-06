@@ -1,7 +1,7 @@
 import { React, useState} from 'react';
 import './FormAuth.css';
 
-function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
+function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }) {
   const [formValidity, setFormValidity] = useState(); // состояние валидации формы
   const [formData, setFormData] = useState({}); // значения полей формы
 
@@ -54,6 +54,9 @@ function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
       ...prevFormData,
       [formElement.name]: formElement.value,
     }));
+
+    // при редактировании формы обнулим текст ошибки ответа сервера
+    setError('');
   }
 
   return (
@@ -93,7 +96,11 @@ function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
           required />
         <span className="form-auth__span-error input-password"></span>
       </div>
-      <button type="submit" className="form-auth__submit" disabled>{submitTitle}</button>
+      <div className="form-auth__submit-wrapper">
+        {/* <span className="form-auth__error">{submitError}</span> */}
+        {submitError && <span className="form-auth__error">{submitError}</span>}
+        <button type="submit" className="form-auth__submit" disabled>{submitTitle}</button>
+      </div>
     </form>
   );
 }
