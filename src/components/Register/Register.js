@@ -5,9 +5,11 @@ import Logo from '../Logo/Logo';
 import FormAuth from '../FormAuth/FormAuth';
 
 function Register() {
+  
   function handleRegisterSubmit(formData) {
-    // console.log(`Компонент регистер принял: ${formData}`);
     console.log(formData);
+
+    // отпарвить данные регистрации на сервер
   }
 
   return (
