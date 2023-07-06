@@ -89,6 +89,16 @@
   line-height: 18px;
 }
 
+.search-film__noresult {
+  margin: 0;
+  padding: 20px 0;
+  color: #ee3465;
+  font-size: 12px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  line-height: 18px;
+  text-align: center;
+}
+
 @media screen and (max-width: 768px) {
   .search-film {
     padding: 80px 30px 0;

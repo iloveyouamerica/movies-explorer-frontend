@@ -22,7 +22,6 @@ function MoviesCardList(props) {
 
   // useEffect для отслеживания изменения размера экрана
   useEffect(() => {
-
     // функция для переоценки количества карточек
     function handleResizeScreen () {
       const newMoviesCardCount = getCountCardForWidthScren();

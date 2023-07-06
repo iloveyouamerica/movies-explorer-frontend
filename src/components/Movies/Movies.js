@@ -7,9 +7,6 @@ import Footer from '../Footer/Footer';
 
 function Movies() {
   const [moviesList, setMoviesList] = useState([]);
-  // const localMoviesList = JSON.parse(localStorage.getItem('moviesList'));
-  /* console.log(`lc: ${mv}`);
-  console.log(`search: ${moviesList}`); */
 
   useEffect(() => {
     // Проверяем наличие данных в localStorage
@@ -21,6 +18,7 @@ function Movies() {
     }
   }, []);
 
+  // функция поиска фильмов
   function handleMoviesSearch(movies) {
     setMoviesList(movies);
   }
@@ -30,7 +28,6 @@ function Movies() {
       <Header />
       <main className="main">
         <SearchForm onSearch={handleMoviesSearch} />
-        {/* {moviesList.length > 0 && (<MoviesCardList moviesCardList={moviesList} cardType={"like"} />)} */}
         {moviesList.length > 0 && (<MoviesCardList moviesCardList={moviesList} cardType="like" />)}
       </main>
       <Footer />

@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './SearchForm.css';
+import Preloader from '../Preloader/Preloader';
 import getFilm from '../../utils/MoviesApi';
 
 function SearchForm({ onSearch }) {
-  // значение поля инпута поиска
+  // состояние значения поля инпута поиска
   const [searchInputValue, setSearchInputValue] = useState(''); 
-  // перключатель короткометражек
+  // состояние перключателя короткометражек
   const [shortFilmChecked, setShortFilmChecked] = useState(true);
+  // состояние прелоадера
+  const [isLoading, setIsLoading] = useState(false);
+  // состояние результатов поиска
+  const [isNoResults, setIsNoResults] = useState(false);
 
+  // если есть сохранённые данные для формы поиска в localStorage
   useEffect(() => {
     const storageSearchMoviesQuery = localStorage.getItem('searchMoviesQuery');
     const storageShortFilmChecked = localStorage.getItem('shortFilmCheckedBtn');
@@ -48,6 +54,12 @@ function SearchForm({ onSearch }) {
       return;
     }
 
+    // скрыть "ничего не найдено"
+    setIsNoResults(false);
+
+    // активировать прелоадер
+    setIsLoading(true);
+
     // запрос на сервер к БД с фильмами
     getFilm()
       .then((movies) => {
@@ -57,11 +69,18 @@ function SearchForm({ onSearch }) {
           movie.nameRU.toLowerCase().includes(searchInput.value.toLowerCase())
         );
 
+        // фильтр короткометражек
         if(shortFilmChecked) {
           filteredMovies = filteredMovies.filter(movie => movie.duration < 40)
         }
 
-        onSearch(filteredMovies); // возвращаем фильмы в родительский компонент
+        // если фильмов по запросу нет
+        if (filteredMovies.length === 0) {
+          setIsNoResults(true);
+        }
+
+        // возвращаем фильмы в родительский компонент Movies
+        onSearch(filteredMovies);
         
         // сохранение данных в локальное хранилище
         localStorage.setItem('searchMoviesQuery', searchInputValue);
@@ -71,6 +90,9 @@ function SearchForm({ onSearch }) {
       .catch((err) => {
         searchErrorSpan.textContent = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -100,12 +122,14 @@ function SearchForm({ onSearch }) {
       </form>
       <span className="search-film__form-error"></span>
       <div className="search-film__filter-wrapper">
-      <button
-        type="button"
-        className={`search-film__filter-tumbler ${shortFilmChecked ? '' : 'search-film__filter-tumbler_off'}`}
-        onClick={handleTumblerClick}></button>
+        <button
+          type="button"
+          className={`search-film__filter-tumbler ${shortFilmChecked ? '' : 'search-film__filter-tumbler_off'}`}
+          onClick={handleTumblerClick}></button>
         <span className="search-film__filter-title">Короткометражки</span>
       </div>
+      {isLoading && (<Preloader />)}
+      {isNoResults && (<p className="search-film__noresult">Ничего не найдено</p>)}
     </section>
   );
 }
