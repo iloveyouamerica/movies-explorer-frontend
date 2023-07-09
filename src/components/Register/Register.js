@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import FormAuth from '../FormAuth/FormAuth';
-import { userRegister } from '../../utils/MainApi';
+import * as userApi from '../../utils/MainApi';
 
-function Register() {
-  const [registerError, setRegisterError] = useState('');
+function Register(props) {
+  const [registerError, setRegisterError] = useState(''); // ошибки при регистрации
+  const { handleSetLoggedIn, handleSetCurrentUser } = props;
+  
+  const navigate = useNavigate();
 
   // функция установит текст ошибки сервера (используется для поднятия состояния)
   function setServerError(error) {
@@ -14,14 +17,35 @@ function Register() {
   }
   
   function handleRegisterSubmit(formData) {
-    console.log(formData);
-
     // отправить данные регистрации на сервер
-    userRegister()
-      .then(data => console.log(data))
-      .catch(err => {
-        setServerError(err.message); // установим тект ошибки сервера
-        //console.log(`Error ihihi: ${err}`)
+    userApi.userRegister(formData)
+      .then(data => {
+        if(data.message) { // если в ответе сервера есть сообщение
+          setRegisterError(data.message);
+        } else { // если пользователь успешно зарегистрирован
+          // выполним авторизацию нового пользователя
+          userApi.userLogin({'email': formData.email, 'password': formData.password})
+            .then(data => {
+              if(data.message) {
+                console.log(data.message)
+              } else {
+                handleSetLoggedIn(true); // установим isLoggedIn: true
+                localStorage.setItem('token', data.token);
+
+                // получим и установим данные пользователя в currentUser
+                userApi.getUserData(data.token)
+                  .then(userData => {
+                    handleSetCurrentUser(userData);
+                  })
+                  .catch(err => console.log(err));
+
+                navigate('/movies');
+              }
+            });
+        }
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 

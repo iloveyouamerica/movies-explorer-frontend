@@ -5,7 +5,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
-function Movies() {
+function Movies({ loggedIn }) {
   const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function Movies() {
 
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn} />
       <main className="main">
         <SearchForm onSearch={handleMoviesSearch} />
         {moviesList.length > 0 && (<MoviesCardList moviesCardList={moviesList} cardType="like" />)}

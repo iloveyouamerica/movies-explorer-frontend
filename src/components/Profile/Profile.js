@@ -1,87 +1,114 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../../utils/userContext';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import './Profile.css';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
+import { CurrentUserContext } from '../../utils/CurrentUserContext';
+import * as userApi from '../../utils/MainApi';
 
-
-function Profile() {
-
-  // это временный контекст (хардкод)
-  const userData = useContext(UserContext);
-
+function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
   const navigate = useNavigate();
+  const currentUser = useContext(CurrentUserContext);
+  const formRef = useRef(null);
 
-  // находится ли форма в режиме редактирования
-  const [isProfileEdit, setIsProfileEdit] = useState(false);
+  // значения управляемых инпутов
+  const [userName, setUserName] = useState(currentUser.name);
+  const [userEmail, setUserEmail] = useState(currentUser.email);
 
-  // управляемые инпуты
-  const [userName, setUserName] = useState(userData.userName);
-  const [userEmail, setUserEmail] = useState(userData.userEmail);
-
+  // состояние валидности формы
   const [formValidity, setFormValidity] = useState(false);
 
-  function handleChangeUserName(event) {
-    setUserName(event.target.value);
-    checkValidity();
-  }
+  // включение возможности редактировать форму
+  const [isProfileEdit, setIsProfileEdit] = useState();
 
-  function handleChangeUserEmail(event) {
-    setUserEmail(event.target.value);
-    checkValidity();
-  }
+  // состояние ошибки редактирования профиля
+  const [profileEditError, setProfileEditError] = useState('');
 
-  // проверка вадидации формы
-  function checkValidity() {
-    const profileForm = document.querySelector('.profile__form');
-    const formInputs = profileForm.querySelectorAll('.profile__form-input');
-    const isInvalidInput = Array.from(formInputs).some((input) => input.validity.valid === false);
-    
-    setFormValidity(!isInvalidInput);
+  // состояние изменений в полях ввода
+  const [isFormChanged, setIsFormChanged] = useState(false);
 
-    const submitButton = document.querySelector('.profile__form-submit');
-    const formValidityError = document.querySelector('.profile__form-submit-error');
-
-    if(!isInvalidInput) {
-      formValidityError.textContent = '';
-      submitButton.removeAttribute('disabled');
-    } else {
-      formValidityError.textContent = 'Вы ввели неправильный логин или пароль';
-      submitButton.setAttribute('disabled', 'disabled');
-    }
-    //console.log(!isInvalidInput);
-  }
-
-  // переключиться на редактирование формы
-  function handleChangeProfile() {
+  // дать возможность редактировать форму
+  function handleGetProfileEdit() {
     setIsProfileEdit(true);
   }
+
+  // проверить валидность формы
+  function checkFormValidity() {
+    const form = formRef.current;
+    if(form.checkValidity()) {
+      setFormValidity(true);
+      setProfileEditError('');
+    } else {
+      setFormValidity(false);
+      setProfileEditError('Вы ввели неправильный логин или пароль');
+    }
+
+    checkFormChanges();
+  }
+
+  // проверить изменения в полях ввода
+  function checkFormChanges() {
+    const isNameChanged = userName !== currentUser.name;
+    const isEmailChanged = userEmail !== currentUser.email;
+    setIsFormChanged(isNameChanged || isEmailChanged);
+  }
+
+  // изменение имени
+  function handleChangeUserName(event) {
+    setUserName(event.target.value);
+    checkFormValidity();
+  }
+
+  // изменение email
+  function handleChangeUserEmail(event) {
+    setUserEmail(event.target.value);
+    checkFormValidity();
+  }
+
+  useEffect(() => {
+    const isNameChanged = userName !== currentUser.name;
+    const isEmailChanged = userEmail !== currentUser.email;
+    setIsFormChanged(isNameChanged || isEmailChanged);
+  }, [userName, userEmail, currentUser]);
 
   // отправка формы
   function handleProfileFormSubmit(event) {
     event.preventDefault();
 
-    alert('Форма отправлена');
+    userApi.changeUserData(userName, userEmail)
+      .then(data => {
+        console.log(data);
+        if(!data.message) {
+          handleSetCurrentUser({ ...currentUser, name: data.name, email: data.email });
+          setProfileEditError('Данные успешно обновлены!');
+        } else {
+          setProfileEditError(data.message);
+        }
+      })
+      .catch(err => console.log(err));
   }
-
-  // выход из профайла
+  
+  // выйти из аккаунта
   function handleLogOut() {
-    // при логауте нужно очистить localStorage и перенаправить на главную
+    localStorage.removeItem('token');
+    handleSetLoggedIn(false);
+    handleSetCurrentUser({});
     navigate('/');
   }
 
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn} />
       <main className="main">
         <section className="profile">
-          <h1 className="profile__name">Привет, {userData.userName}!</h1>
+          <h1 className="profile__name">Привет, {currentUser.name}!</h1>
           <form
             className="profile__form"
             action="#"
             method="POST"
             name="profile-form"
-            onSubmit={handleProfileFormSubmit} noValidate>
+            onSubmit={handleProfileFormSubmit}
+            ref={formRef}
+            noValidate>
             <div className="profile__form-container">
               <div className="profile__form-input-wrapper">
                 <label className="profile__form-label">Имя</label>
@@ -102,6 +129,7 @@ function Profile() {
                   className={`profile__form-input ${!isProfileEdit ? 'profile__form-input_no-edit' : ''}`}
                   type="email"
                   name="profile-email"
+                  pattern=".+@.+\..+"
                   minLength="2"
                   maxLength="100"
                   value={userEmail}
@@ -112,18 +140,18 @@ function Profile() {
             </div>
             {isProfileEdit ?
               (<div className="profile__form-submit-wrapper">
-                <span className="profile__form-submit-error"></span>
+                <span className="profile__form-submit-error">{profileEditError}</span>
                 <button
                   type="submit"
                   className={`profile__form-submit ${
-                  formValidity ? 'profile__form-submit_active' : ''}`}
-                  disabled>Сохранить</button>
+                  formValidity && isFormChanged ? 'profile__form-submit_active' : ''}`}
+                  disabled={!formValidity && !isFormChanged}>Сохранить</button>
               </div>) :
               (<div className="profile__form-change-wrapper">
               <button
                 type="button"
                 className="profile__form-change"
-                onClick={handleChangeProfile}>Редактировать</button>
+                onClick={handleGetProfileEdit}>Редактировать</button>
               <button
                 type="button"
                 className="profile__logout"

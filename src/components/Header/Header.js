@@ -5,7 +5,7 @@ import Logo from "../Logo/Logo";
 import NavigationAuth from "../NavigationAuth/NavigationAuth";
 import Navigation from "../Navigation/Navigation";
 
-function Header() {
+function Header({ loggedIn }) {
   // получаем текущий путь с помощью хука
   const location = useLocation();
 
@@ -16,7 +16,7 @@ function Header() {
     <header className={`header ${isHomePage ? 'header_background-main' : ''}`}>
       <Logo />
       <nav className="header__navigation">
-        {isHomePage ? <NavigationAuth /> : <Navigation />}
+        {!loggedIn ? <NavigationAuth /> : <Navigation />}
       </nav>
     </header>
   );

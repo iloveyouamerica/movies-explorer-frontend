@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import './SavedMovies.css';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -19,4 +19,4 @@ function SavedMovies() {
   );
 }
 
-export default SavedMovies;
+export default SavedMovies; */

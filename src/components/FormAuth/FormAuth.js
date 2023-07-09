@@ -55,7 +55,7 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
       [formElement.name]: formElement.value,
     }));
 
-    // при редактировании формы обнулим текст ошибки ответа сервера
+    // при редактировании формы обнулим текст ошибки ответа сервера (скроем)
     setError('');
   }
 
@@ -97,7 +97,6 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
         <span className="form-auth__span-error input-password"></span>
       </div>
       <div className="form-auth__submit-wrapper">
-        {/* <span className="form-auth__error">{submitError}</span> */}
         {submitError && <span className="form-auth__error">{submitError}</span>}
         <button type="submit" className="form-auth__submit" disabled>{submitTitle}</button>
       </div>
