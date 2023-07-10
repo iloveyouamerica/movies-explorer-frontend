@@ -46,7 +46,7 @@ function changeUserData(name, email) {
     method: 'PATCH',
     headers: {
       authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       name: name,
@@ -56,5 +56,52 @@ function changeUserData(name, email) {
     .then(res => res.json())
 }
 
+// сохранить фильм в избранные
+function saveMovie(movie) {
+  const token = localStorage.getItem('token');
+  return fetch(`${baseUrl}/movies`, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(movie),
+  })
+    .then(res => res.json())
+}
 
-export { userRegister, userLogin, getUserData, changeUserData };
+// удалить фильм
+function deleteMovie(moviesId) {
+  const token = localStorage.getItem('token');
+  return fetch(`${baseUrl}/movies/${moviesId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+}
+
+// получить все сохранённые фильмы
+function getSavedMovies() {
+  const token = localStorage.getItem('token');
+  return fetch(`${baseUrl}/movies`, {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+}
+
+
+export {
+  userRegister,
+  userLogin,
+  getUserData,
+  changeUserData,
+  saveMovie,
+  deleteMovie,
+  getSavedMovies };

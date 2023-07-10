@@ -1,18 +1,46 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './MoviesCard.css';
 import { Link } from 'react-router-dom';
 
 function MoviesCard(props) {
+  const [isSaved, setIsSaved] = useState(false);
 
-  function handleClickLikeCard(event) {
+  useEffect(() => {
+    // Проверяем, сохранена ли карточка в localStorage при первой отрисовке для кнопки с лайком
+    if(props.typeButton === 'like') {
+      const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      if (savedMovies) {
+        const isAlreadySaved = savedMovies.some(movie => movie.movieId === props.cardId);
+        setIsSaved(!!isAlreadySaved);
+      }
+    }
+  }, []);
+
+  // кнопка лайка/дизлайка для компонента Movies
+  function handleSaveMovie(cardId, event) {
     event.preventDefault();
-    const cardButton = event.target;
-    cardButton.classList.toggle('movie-card__button-like_active');
+
+    if(isSaved) {
+      // Получаем текущие сохраненные фильмы из localStorage
+      const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      // Находим объект с заданным movieId и получаем его _id
+      const savedMovie = localSavedMovies.find(movie => movie.movieId === cardId);
+
+      // Карточка уже сохранена, выполняем удаление
+      props.deleteMovieCard(savedMovie._id);
+      setIsSaved(false);
+    } else {
+      // Карточка не сохранена, выполняем сохранение
+      props.addMovieCard(cardId);
+      setIsSaved(true);
+    }
   }
 
-  function handleClickDeleteCard(event) {
-    const cardButton = event.target;
-    cardButton.closest('.movie-card').remove();
+  // удалить фильм из сохранённых
+  function handleClickDeleteCard(cardId, event) {
+    event.preventDefault();
+    // поднимаем результат в компонент выше - MoviesCardList
+    props.deleteMovieCard(cardId);
   }
 
   return (
@@ -24,25 +52,13 @@ function MoviesCard(props) {
           {props.typeButton === 'like' ? 
             (<button
             type="button"
-            className="movie-card__button movie-card__button-like"
-            onClick={handleClickLikeCard}></button>)
-            /* (props.likes.find((user) => user === props.userData.userId) ? 
-              (<button
-                type="button"
-                className="movie-card__button movie-card__button-like movie-card__button-like_active"
-                onClick={handleClickLikeCard}></button>)
-              : (<button
-                type="button"
-                className="movie-card__button movie-card__button-like"
-                onClick={handleClickLikeCard}></button>)
-            ) */
-            : (props.owner === props.userData.userId ? 
-              (<button
-                type="button"
-                className="movie-card__button movie-card__button-delete"
-                onClick={handleClickDeleteCard}></button>)
-                : ''
-            )
+            className={`movie-card__button movie-card__button-like ${isSaved ? 
+              'movie-card__button-like_active' : ''}`}
+            onClick={(event) => handleSaveMovie(props.cardId, event)} ></button>) :
+            (<button
+              type="button"
+              className="movie-card__button movie-card__button-delete"
+              onClick={(event) => handleClickDeleteCard(props.cardId, event)}></button>)
           }
         </div>
         <span className="movie-card__duration">{props.duration}</span>

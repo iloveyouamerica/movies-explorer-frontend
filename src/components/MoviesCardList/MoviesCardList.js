@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import durationFormat from '../../utils/durationFormat';
+import * as myApi from '../../utils/MainApi';
 
 function MoviesCardList(props) {
   // начальное количество карточек на странице
@@ -41,20 +42,85 @@ function MoviesCardList(props) {
     setMoviesCardCount((count) => count + getCountCardForWidthScren().moreBtn);
   }
 
-  // отображаемые карточки фильмов
-  const displayedCards = props.moviesCardList.slice(0, moviesCardCount);
+  // !!! movieCardList - это полный список, найденных фильмов, он формируется либо из запроса,
+  // либо из localStorage
+
+  // найти карточку по id (после лайка)
+  function findCardById(cardsList, cardId) {
+    return cardsList.find((card) => card.id === cardId);
+  }
+
+  // добавление карточки с фильмом
+  function addMovieCard(cardId) {
+    console.log(`Добавляем карточку: ${cardId}`);
+
+    // находим информацию о карточке по id
+    const card = findCardById(props.moviesCardList, cardId);
+
+    // формируем объект сохраняемой карточки
+    const saveCard = {
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: `https://api.nomoreparties.co/${card.image.url}`,
+      trailerLink: card.trailerLink,
+      thumbnail: `https://api.nomoreparties.co/${card.image.url}`,
+      movieId: card.id,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+    };
+
+    // отправляем запрос в базу данных на сохранение карточки
+    myApi.saveMovie(saveCard)
+      .then(data => {
+        // получаем текущие сохраненные фильмы из localStorage
+        const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+
+        // добавляем новую карточку фильма в массив сохраненных фильмов
+        const updatedSavedMovies = [...localSavedMovies, data];
+
+        // сохраняем обновленный массив в localStorage
+        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch(err => console.log(err));
+  }
+
+  // удаление карточки с фильмом
+  function deleteMovieCard(cardId) {
+    console.log(`Удаляем карточку: ${cardId}`)
+
+    // запрос на удаление
+    myApi.deleteMovie(cardId)
+      .then(data => {
+        console.log(data);
+
+        // удаляем карточку из состояния moviesCardList
+        props.setMoviesCardList(prevList => prevList.filter(card => card._id !== cardId));
+
+        // обновить localStorage, удалить удалённую карточку
+        const localSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+        const updatedSavedMovies = localSavedMovies.filter(card => card._id !== cardId);
+        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch(err => console.log(err));
+  }
 
   return (
     <section className="movies-card">
       <ul className="movies-card__list">
-        {displayedCards.map((card) => (
+        {props.moviesCardList.slice(0, moviesCardCount).map((card) => (
           <MoviesCard
-            key={card.id} // Добавляем ключ для каждого компонента в массиве
+            key={card.id ? card.id : card._id} // Добавляем ключ для каждого компонента
+            cardId={card.id ? card.id : card._id}
             trailerLink={card.trailerLink}
-            img={`https://api.nomoreparties.co/${card.image.url}`}
+            img={card.image.url ? `https://api.nomoreparties.co/${card.image.url}` : `${card.image}` }
             title={card.nameRU}
             duration={durationFormat(card.duration)}
             typeButton={props.cardType}
+            addMovieCard={addMovieCard}
+            deleteMovieCard={deleteMovieCard}
           />
         ))}
       </ul>

@@ -89,7 +89,7 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
   
   // выйти из аккаунта
   function handleLogOut() {
-    localStorage.removeItem('token');
+    localStorage.clear(); // очистим все данные
     handleSetLoggedIn(false);
     handleSetCurrentUser({});
     navigate('/');

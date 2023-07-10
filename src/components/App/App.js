@@ -51,7 +51,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route path="/movies" element={<Movies loggedIn={loggedIn} />} />
-          {/* <Route path="/saved-movies" element={<SavedMovies />} /> */}
+          <Route path="/saved-movies" element={<SavedMovies loggedIn={loggedIn} />} />
           <Route path="/profile" element={<Profile loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
           <Route path="/signup" element={<Register handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
           <Route path="/signin" element={<Login handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />

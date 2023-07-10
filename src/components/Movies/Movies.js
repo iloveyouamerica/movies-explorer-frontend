@@ -27,8 +27,8 @@ function Movies({ loggedIn }) {
     <>
       <Header loggedIn={loggedIn} />
       <main className="main">
-        <SearchForm onSearch={handleMoviesSearch} />
-        {moviesList.length > 0 && (<MoviesCardList moviesCardList={moviesList} cardType="like" />)}
+        <SearchForm searchType="globalMovies" onSearch={handleMoviesSearch} />
+        {moviesList.length > 0 && (<MoviesCardList setMoviesCardList={setMoviesList} moviesCardList={moviesList} cardType="like" />)}
       </main>
       <Footer />
     </>
