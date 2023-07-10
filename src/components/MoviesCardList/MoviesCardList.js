@@ -52,7 +52,7 @@ function MoviesCardList(props) {
 
   // добавление карточки с фильмом
   function addMovieCard(cardId) {
-    console.log(`Добавляем карточку: ${cardId}`);
+    //console.log(`Добавляем карточку: ${cardId}`);
 
     // находим информацию о карточке по id
     const card = findCardById(props.moviesCardList, cardId);
@@ -89,7 +89,7 @@ function MoviesCardList(props) {
 
   // удаление карточки с фильмом
   function deleteMovieCard(cardId) {
-    console.log(`Удаляем карточку: ${cardId}`)
+    //console.log(`Удаляем карточку: ${cardId}`)
 
     // запрос на удаление
     myApi.deleteMovie(cardId)

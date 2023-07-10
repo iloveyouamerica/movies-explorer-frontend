@@ -53,11 +53,8 @@ function App() {
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route path="/signup" element={<Register handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
           <Route path="/signin" element={<Login handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
-          {/* <Route path="/movies" element={<Movies loggedIn={loggedIn} />} /> */}
           <Route path="/movies" element={<ProtectedRouteElement element={Movies} loggedIn={loggedIn} />} />
-          {/* <Route path="/saved-movies" element={<SavedMovies loggedIn={loggedIn} />} /> */}
           <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} loggedIn={loggedIn} />} />
-          {/* <Route path="/profile" element={<Profile loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} /> */}
           <Route path="/profile" element={<ProtectedRouteElement element={Profile} loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

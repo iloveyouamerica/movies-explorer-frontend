@@ -76,7 +76,7 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
 
     userApi.changeUserData(userName, userEmail)
       .then(data => {
-        console.log(data);
+        //console.log(data);
         if(!data.message) {
           handleSetCurrentUser({ ...currentUser, name: data.name, email: data.email });
           setProfileEditError('Данные успешно обновлены!');
