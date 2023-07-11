@@ -20,4 +20,7 @@ https://disk.yandex.ru/d/ZUzluUG9aThCzA
 ## URL:
 https://moviess.nomoredomains.rocks
 
+## Ссылка на Pull-Request:
+https://github.com/iloveyouamerica/movies-explorer-frontend/pull/2
+
 Добро пожаловать!
