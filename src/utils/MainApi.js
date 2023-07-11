@@ -1,7 +1,7 @@
 // запросы к собственному API
 
-// api.moviess.nomoredomains.rocks
-const baseUrl = 'http://localhost:3001';
+// const baseUrl = 'http://localhost:3001';
+const baseUrl = 'https://api.moviess.nomoredomains.rocks';
 
 // регистрация
 function userRegister(userData) {
