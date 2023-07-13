@@ -3,6 +3,7 @@ import './SearchForm.css';
 import Preloader from '../Preloader/Preloader';
 import getFilm from '../../utils/MoviesApi';
 import { SEARCH_FILM_ERROR, EMPTY_SEARCH_FORM } from '../../utils/constants';
+import { DURATIONS_VIDEO } from '../../utils/constants';
 
 function SearchForm(props) {
   // значение поля инпута поиска
@@ -68,7 +69,7 @@ function SearchForm(props) {
 
     // фильтр короткометражек
     if(shortFilmChecked) {
-      filteredMovies = filteredMovies.filter(movie => movie.duration < 40)
+      filteredMovies = filteredMovies.filter(movie => movie.duration < DURATIONS_VIDEO) // 40
     }
 
     // если фильмов по запросу нет

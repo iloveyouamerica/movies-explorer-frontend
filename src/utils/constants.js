@@ -6,6 +6,8 @@ const EMAIL_FORMAT = 'Введите email в формате xxx@xxx.xx';
 const SEARCH_FILM_ERROR = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 const EMPTY_SEARCH_FORM = 'Нужно ввести ключевое слово'
 
+const DURATIONS_VIDEO = 40;
+
 const BIG_SCREEN_SIZE = 1280;
 const SMALL_SCREEN_SIZE = 768;
 
@@ -24,6 +26,7 @@ export {
   EMAIL_FORMAT,
   SEARCH_FILM_ERROR,
   EMPTY_SEARCH_FORM,
+  DURATIONS_VIDEO,
   BIG_SCREEN_SIZE,
   SMALL_SCREEN_SIZE,
   BIG_SCREEN_CARD_INIT,
