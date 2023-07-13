@@ -3,6 +3,16 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import durationFormat from '../../utils/durationFormat';
 import * as myApi from '../../utils/MainApi';
+import {
+  BIG_SCREEN_SIZE,
+  SMALL_SCREEN_SIZE,
+  BIG_SCREEN_CARD_INIT,
+  SMALL_SCREEN_CARD_INIT,
+  VERY_SMALL_CARD_INIT,
+  BIG_SCREEN_CARD_COUNT,
+  SMALL_SCREEN_CARD_COUNT,
+  VERYSMALL_SCREEN_CARD_COUNT
+} from '../../utils/constants';
 
 function MoviesCardList(props) {
   // начальное количество карточек на странице
@@ -12,12 +22,12 @@ function MoviesCardList(props) {
   function getCountCardForWidthScren() {
     const screenWidth = window.innerWidth;
 
-    if(screenWidth >= 1280) {
-      return {cardStart: 12, moreBtn: 4};
-    } else if(screenWidth >= 768) {
-      return {cardStart: 8, moreBtn: 2};
+    if(screenWidth >= BIG_SCREEN_SIZE) { // 1280px
+      return {cardStart: BIG_SCREEN_CARD_INIT, moreBtn: BIG_SCREEN_CARD_COUNT}; // 12 * 4
+    } else if(screenWidth >= SMALL_SCREEN_SIZE) { // 768px
+      return {cardStart: SMALL_SCREEN_CARD_INIT, moreBtn: SMALL_SCREEN_CARD_COUNT}; // 8 * 2
     } else {
-      return {cardStart: 5, moreBtn: 1};
+      return {cardStart: VERY_SMALL_CARD_INIT, moreBtn: VERYSMALL_SCREEN_CARD_COUNT}; // 5 * 1
     }
   }
 
@@ -41,9 +51,6 @@ function MoviesCardList(props) {
   function handleShowMoreMovies() {
     setMoviesCardCount((count) => count + getCountCardForWidthScren().moreBtn);
   }
-
-  // !!! movieCardList - это полный список, найденных фильмов, он формируется либо из запроса,
-  // либо из localStorage
 
   // найти карточку по id (после лайка)
   function findCardById(cardsList, cardId) {

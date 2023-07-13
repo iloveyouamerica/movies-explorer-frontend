@@ -1,11 +1,10 @@
 // запросы к собственному API
 
-// const baseUrl = 'http://localhost:3001';
-const baseUrl = 'https://api.moviess.nomoredomains.rocks';
+import { BASE_URL } from '../utils/constants';
 
 // регистрация
 function userRegister(userData) {
-  return fetch(`${baseUrl}/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +16,7 @@ function userRegister(userData) {
 
 // авторизация
 function userLogin(userData) {
-  return fetch(`${baseUrl}/signin`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +28,7 @@ function userLogin(userData) {
 
 // получить данные пользователя по токену
 function getUserData(token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -42,7 +41,7 @@ function getUserData(token) {
 // обновить данные пользователя
 function changeUserData(name, email) {
   const token = localStorage.getItem('token');
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
       authorization: `Bearer ${token}`,
@@ -59,7 +58,7 @@ function changeUserData(name, email) {
 // сохранить фильм в избранные
 function saveMovie(movie) {
   const token = localStorage.getItem('token');
-  return fetch(`${baseUrl}/movies`, {
+  return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
     headers: {
       authorization: `Bearer ${token}`,
@@ -73,7 +72,7 @@ function saveMovie(movie) {
 // удалить фильм
 function deleteMovie(moviesId) {
   const token = localStorage.getItem('token');
-  return fetch(`${baseUrl}/movies/${moviesId}`, {
+  return fetch(`${BASE_URL}/movies/${moviesId}`, {
     method: 'DELETE',
     headers: {
       authorization: `Bearer ${token}`,
@@ -86,7 +85,7 @@ function deleteMovie(moviesId) {
 // получить все сохранённые фильмы
 function getSavedMovies() {
   const token = localStorage.getItem('token');
-  return fetch(`${baseUrl}/movies`, {
+  return fetch(`${BASE_URL}/movies`, {
     method: 'GET',
     headers: {
       authorization: `Bearer ${token}`,

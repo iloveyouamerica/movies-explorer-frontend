@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../Logo/Logo';
@@ -6,10 +6,17 @@ import FormAuth from '../FormAuth/FormAuth';
 import * as userApi from '../../utils/MainApi';
 
 function Register(props) {
-  const [registerError, setRegisterError] = useState(''); // ошибки при регистрации
-  const { handleSetLoggedIn, handleSetCurrentUser } = props;
-  
   const navigate = useNavigate();
+
+  const [registerError, setRegisterError] = useState(''); // ошибки при регистрации
+  const [isAuth, setIsAuth] = useState(false);
+  const { handleSetLoggedIn, handleSetCurrentUser } = props;
+
+  useEffect(() => {
+    if (props.loggedIn) {
+      navigate('/');
+    }
+  }, [props.loggedIn, navigate]);
 
   // функция установит текст ошибки сервера (используется для поднятия состояния)
   function setServerError(error) {
@@ -17,6 +24,9 @@ function Register(props) {
   }
   
   function handleRegisterSubmit(formData) {
+    // заблокируем поля формы во время запроса
+    setIsAuth(true);
+
     // отправить данные регистрации на сервер
     userApi.userRegister(formData)
       .then(data => {
@@ -46,7 +56,15 @@ function Register(props) {
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        // разблокируем поля формы
+        setIsAuth(false);
       });
+  }
+
+  if(props.loading) {
+    return null;
   }
 
   return (
@@ -58,6 +76,7 @@ function Register(props) {
           </div>
           <h1 className="register__title">Добро пожаловать!</h1>
           <FormAuth
+            isAuth={isAuth}
             submitError={registerError}
             setError={setServerError}
             onSubmit={handleRegisterSubmit}

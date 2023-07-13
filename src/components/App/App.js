@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -15,6 +15,7 @@ import ProtectedRouteElement from '../ProtectedRoute';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true); // состояние загрузки компонента App
 
   // хук, при первоначальном монтировании компонента
   useEffect(() => {
@@ -43,6 +44,14 @@ function App() {
           setLoggedIn(true);
           setCurrentUser(userData);
         })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false); // Завершение загрузки App.js
+        });
+    } else {
+      setLoading(false); // Завершение загрузки App.js
     }
   }
 
@@ -51,11 +60,11 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
-          <Route path="/signup" element={<Register handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
-          <Route path="/signin" element={<Login handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
-          <Route path="/movies" element={<ProtectedRouteElement element={Movies} loggedIn={loggedIn} />} />
-          <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} loggedIn={loggedIn} />} />
-          <Route path="/profile" element={<ProtectedRouteElement element={Profile} loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
+          <Route path="/signup" element={loggedIn ? (<Navigate to="/" replace />) : (<Register loading={loading} loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />)} />
+          <Route path="/signin" element={loggedIn ? (<Navigate to="/" replace />) : (<Login loading={loading} loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />)} />
+          <Route path="/movies" element={<ProtectedRouteElement element={Movies} loading={loading} loggedIn={loggedIn} />} />
+          <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} loading={loading}loggedIn={loggedIn} />} />
+          <Route path="/profile" element={<ProtectedRouteElement element={Profile} loading={loading} loggedIn={loggedIn} handleSetLoggedIn={handleSetLoggedIn} handleSetCurrentUser={handleSetCurrentUser} />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         </CurrentUserContext.Provider>

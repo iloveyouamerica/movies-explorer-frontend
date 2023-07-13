@@ -1,7 +1,8 @@
 import { React, useState} from 'react';
 import './FormAuth.css';
+import { EMAIL_FORMAT } from '../../utils/constants';
 
-function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }) {
+function FormAuth({ isAuth, submitError, setError, onSubmit, hasNameInput, submitTitle }) {
   const [formValidity, setFormValidity] = useState(); // состояние валидации формы
   const [formData, setFormData] = useState({}); // значения полей формы
 
@@ -40,7 +41,7 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
       spanError.textContent = formElement.validationMessage.split('.')[0];
 
       if(formElement.type === "email") {
-        spanError.textContent = "Введите email в формате xxx@xxx.xx";
+        spanError.textContent = EMAIL_FORMAT; // Введите email в формате xxx@xxx.xx
       }
     } else {
       spanError.textContent = '';
@@ -60,7 +61,12 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
   }
 
   return (
-    <form action="#" method="POST" className="form-auth" onChange={handleFormChange} onSubmit={handleFormSubmit} noValidate>
+    <form action="#"
+      method="POST"
+      className="form-auth"
+      onChange={handleFormChange}
+      onSubmit={handleFormSubmit}
+      noValidate>
       <div className="form-auth__area-wrapper">
         {hasNameInput && (
           <>
@@ -72,7 +78,8 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
               className="form-auth__input"
               minLength="2"
               maxLength="30"
-              required />
+              required
+              disabled={isAuth} />
             <span className="form-auth__span-error input-name"></span>
           </>
         )}
@@ -84,7 +91,8 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
           className="form-auth__input"
           pattern=".+@.+\..+"
           minLength="2"
-          required />
+          required
+          disabled={isAuth} />
         <span className="form-auth__span-error input-email"></span>
         <label htmlFor="input-password" className="form-auth__input-label">Пароль</label>
         <input
@@ -93,12 +101,13 @@ function FormAuth({ submitError, setError, onSubmit, hasNameInput, submitTitle }
           id="input-password"
           className="form-auth__input"
           minLength="2"
-          required />
+          required
+          disabled={isAuth} />
         <span className="form-auth__span-error input-password"></span>
       </div>
       <div className="form-auth__submit-wrapper">
         {submitError && <span className="form-auth__error">{submitError}</span>}
-        <button type="submit" className="form-auth__submit" disabled>{submitTitle}</button>
+        <button type="submit" className="form-auth__submit" disabled={isAuth}>{submitTitle}</button>
       </div>
     </form>
   );

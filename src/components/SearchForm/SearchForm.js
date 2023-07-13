@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './SearchForm.css';
 import Preloader from '../Preloader/Preloader';
 import getFilm from '../../utils/MoviesApi';
+import { SEARCH_FILM_ERROR, EMPTY_SEARCH_FORM } from '../../utils/constants';
 
-function SearchForm({ searchType, onSearch }) {
+function SearchForm(props) {
   // значение поля инпута поиска
   const [searchInputValue, setSearchInputValue] = useState(''); 
   // состояние перключателя короткометражек
-  const [shortFilmChecked, setShortFilmChecked] = useState(true);
+  const [shortFilmChecked, setShortFilmChecked] = useState(false);
   // состояние прелоадера
   const [isLoading, setIsLoading] = useState(false);
   // состояние результатов поиска
   const [isNoResults, setIsNoResults] = useState(false);
   // состояние ошибки инпута
   const [searchInputError, setSearchInputError] = useState('');
+  // состояние поиска (для блокировки полей формы)
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     setSearchInputError('');
@@ -24,36 +27,44 @@ function SearchForm({ searchType, onSearch }) {
     const storageSearchMoviesQuery = localStorage.getItem('searchMoviesQuery');
     const storageShortFilmChecked = localStorage.getItem('shortFilmCheckedBtn');
   
-    if (storageSearchMoviesQuery && searchType === 'globalMovies') {
+    if (storageSearchMoviesQuery && props.searchType === 'globalMovies') {
       // установить состояние инпута поиска
       setSearchInputValue(storageSearchMoviesQuery);
     }
   
-    if (storageShortFilmChecked !== null && searchType === 'globalMovies') {
+    if (storageShortFilmChecked !== null && props.searchType === 'globalMovies') {
       // установить состояние кнопки короткометражек
       setShortFilmChecked(storageShortFilmChecked === 'true');
     }
   }, []);
 
-  // переключение тумблера короткометражек
-  function handleTumblerClick(event) {
-    const tumbler = event.target;
+  useEffect(() => {
+    // если ранее мы искали фильмы, значит инфо о них есть и при этом в форму введён поисковый запрос
+    // тогда мы переключателем короткометражек мы должны обновлять результаты поиска
+    if(props.moviesList.length > 0 && searchInputValue !== '') {
+      findFilm();
+    }
+  }, [shortFilmChecked]);
 
+  // переключение тумблера короткометражек
+  function handleTumblerClick() {
     if (shortFilmChecked) {
-      tumbler.classList.remove('search-film__filter-tumbler_off');
       setShortFilmChecked(false);
     } else {
-      tumbler.classList.add('search-film__filter-tumbler_off');
       setShortFilmChecked(true);
     }
   }
 
-  // фильтр результатов поиска
+  // функция фильтрации результатов поиска
   function filterSearchResult(movies) {
     // фильтрация результата поиска
     let filteredMovies = movies.filter(movie =>
       movie.nameRU.toLowerCase().includes(searchInputValue.toLowerCase())
     );
+
+    // в localStorage следует сохранять глобальный результат поиска
+    // включая любую длительность фильма
+    localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
 
     // фильтр короткометражек
     if(shortFilmChecked) {
@@ -65,50 +76,77 @@ function SearchForm({ searchType, onSearch }) {
       setIsNoResults(true);
     }
 
+    // сохранение данных в локальное хранилище
+    localStorage.setItem('searchMoviesQuery', searchInputValue);
+    localStorage.setItem('shortFilmCheckedBtn', shortFilmChecked);
+
     return filteredMovies;
   }
 
-  // сабмит формы
-  function handleFormSubmit(event) {
-    event.preventDefault();
-
+  // функция поиска фильнмов
+  function findFilm() {
     if(searchInputValue === '') {
-      setSearchInputError('Нужно ввести ключевое слово');
+      setSearchInputError(EMPTY_SEARCH_FORM); // Нужно ввести ключевое слово
+      // если нет поискового запроса, то и искать нечего, выходим
+      return;
     }
 
     // скрыть "ничего не найдено"
     setIsNoResults(false);
+    
+    if(props.searchType === 'globalMovies') { // если это глобальный поиск фильмов
 
-    if(searchType === 'globalMovies') { // если это глбальный поиск фильмов
-      // активировать прелоадер
-      setIsLoading(true);
+      // полный список фильмов из API сохранённый локально
+      const allLocalMovies = localStorage.getItem('allLocalMovies');
 
-      // запрос на сервер к БД с фильмами
-      getFilm()
-        .then((movies) => {
-          const filteredMovies = filterSearchResult(movies);
+      if(allLocalMovies === null) { // если нет копии всех фильмов сохранённых локально (по заданию)
+        // активировать прелоадер
+        setIsLoading(true);
+        // заблокируем поля формы
+        setIsSearching(true);
+        
+        // запрос на сервер к БД с фильмами
+        getFilm()
+          .then((movies) => {
+            // установим локаьную копию всех фильмов из API
+            localStorage.setItem('allLocalMovies', JSON.stringify(movies));
 
-          // возвращаем фильмы в родительский компонент Movies
-          onSearch(filteredMovies);
-          
-          // сохранение данных в локальное хранилище
-          localStorage.setItem('searchMoviesQuery', searchInputValue);
-          localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
-          localStorage.setItem('shortFilmCheckedBtn', shortFilmChecked);
-        })
-        .catch((err) => {
-          setSearchInputError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else { // если это локальный поиск по сохранённым ранее фильмам
+            // функция фильтрации результата поиска
+            const filteredMovies = filterSearchResult(movies);
+
+            // возвращаем фильмы в родительский компонент (Movies/SavedMovies)
+            props.onSearch(filteredMovies);
+          })
+          .catch((err) => {
+            setSearchInputError(SEARCH_FILM_ERROR); // ошибка поиска фильмов
+          })
+          .finally(() => {
+            setIsLoading(false);
+            setIsSearching(false);
+          });
+      } else { // если есть сохранённая локальная копия всех фильмов
+        // функция фильтрации результата поиска
+        const filteredMovies = filterSearchResult(JSON.parse(allLocalMovies));
+
+        // возвращаем фильмы в родительский компонент (Movies/SavedMovies)
+        props.onSearch(filteredMovies);
+      }
+
+    } else {// если это локальный поиск по сохранённым ранее фильмам
       const movies = JSON.parse(localStorage.getItem('savedMovies'));
       const filteredMovies = filterSearchResult(movies);
 
-      // возвращаем фильмы в родительский компонент Movies
-      onSearch(filteredMovies);
+      // возвращаем фильмы в родительский компонент (Movies/SavedMovies)
+      props.onSearch(filteredMovies);
     }
+  }
+
+  // сабмит формы на поиск фильмов
+  function handleFormSubmit(event) {
+    event.preventDefault();
+
+    // вызываем функцию поиска фильмов
+    findFilm();
   }
 
   // управляемый инпут поиска
@@ -132,8 +170,9 @@ function SearchForm({ searchType, onSearch }) {
           onChange={handleSearchInputChange}
           value={searchInputValue}
           minLength={2}
-          required />
-        <button type="submit" className="search-film__button">Найти</button>
+          required 
+          disabled={isSearching} />
+        <button type="submit" className="search-film__button" disabled={isSearching}>Найти</button>
       </form>
       <span className="search-film__form-error">{searchInputError}</span>
       <div className="search-film__filter-wrapper">

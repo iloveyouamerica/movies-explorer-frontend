@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../utils/CurrentUserContext';
 import * as userApi from '../../utils/MainApi';
+import { SUCCESSFUL_DATA_UPDATED, INVALID_LOGIN_OR_PASSWORD } from '../../utils/constants';
 
 function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
   // состояние изменений в полях ввода
   const [isFormChanged, setIsFormChanged] = useState(false);
 
+  // состояние формы для блокировки полей при обработке запроса
+  const [isUpdate, setIsUpdate] = useState(false);
+
   // дать возможность редактировать форму
   function handleGetProfileEdit() {
     setIsProfileEdit(true);
@@ -39,7 +43,7 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
       setProfileEditError('');
     } else {
       setFormValidity(false);
-      setProfileEditError('Вы ввели неправильный логин или пароль');
+      setProfileEditError(INVALID_LOGIN_OR_PASSWORD); // Вы ввели неправильный логин или пароль
     }
 
     checkFormChanges();
@@ -74,17 +78,23 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
   function handleProfileFormSubmit(event) {
     event.preventDefault();
 
+    // блокировка полей формы
+    setIsUpdate(true);
+
     userApi.changeUserData(userName, userEmail)
       .then(data => {
         //console.log(data);
         if(!data.message) {
           handleSetCurrentUser({ ...currentUser, name: data.name, email: data.email });
-          setProfileEditError('Данные успешно обновлены!');
+          setProfileEditError(SUCCESSFUL_DATA_UPDATED); // Данные успешно обновлены!
         } else {
           setProfileEditError(data.message);
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsUpdate(false);
+      });
   }
   
   // выйти из аккаунта
@@ -120,7 +130,8 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
                   maxLength="30"
                   value={userName}
                   onChange={handleChangeUserName}
-                  required />
+                  required
+                  disabled={isUpdate} />
               </div>
               <span className="profile__form-input-error"></span>
               <div className="profile__form-input-wrapper">
@@ -134,7 +145,8 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
                   maxLength="100"
                   value={userEmail}
                   onChange={handleChangeUserEmail}
-                  required />
+                  required
+                  disabled={isUpdate} />
               </div>
               <span className="profile__form-input-error"></span>
             </div>
@@ -145,7 +157,7 @@ function Profile({ loggedIn, handleSetLoggedIn, handleSetCurrentUser }) {
                   type="submit"
                   className={`profile__form-submit ${
                   formValidity && isFormChanged ? 'profile__form-submit_active' : ''}`}
-                  disabled={!formValidity && !isFormChanged}>Сохранить</button>
+                  disabled={!formValidity && !isFormChanged && !isUpdate}>Сохранить</button>
               </div>) :
               (<div className="profile__form-change-wrapper">
               <button
