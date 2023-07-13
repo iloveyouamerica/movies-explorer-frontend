@@ -4,7 +4,7 @@ const SUCCESSFUL_DATA_UPDATED = 'Данные успешно обновлены!
 const INVALID_LOGIN_OR_PASSWORD = 'Вы ввели неправильный логин или пароль';
 const EMAIL_FORMAT = 'Введите email в формате xxx@xxx.xx';
 const SEARCH_FILM_ERROR = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
-const EMPTY_SEARCH_FORM = 'Нужно ввести ключевое слово'
+const EMPTY_SEARCH_FORM = 'Нужно ввести ключевое слово';
 
 const DURATIONS_VIDEO = 40;
 
