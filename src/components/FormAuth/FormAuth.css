@@ -27,13 +27,17 @@
   background-color: transparent;
 }
 
-.form-auth__span-error {
+.form-auth__span-error, .form-auth__error {
   display: block;
   height: 12px;
   padding: 6px 0 6px;
   color: #ee3465;
   font-size: 10px;
   font-family: 'Inter', 'Arial', sans-serif;
+}
+
+.form-auth__error {
+  text-align: center;
 }
 
 .form-auth__submit {

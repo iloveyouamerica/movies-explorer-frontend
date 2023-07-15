@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import './Navigation.css';
 import { Link, NavLink } from 'react-router-dom';
 
 function Navigation() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   function handleToggleBurgerMenu() {
-    document.querySelector('.navigation-main__overlay').classList.toggle('navigation-main__overlay_closed');
+    mobileMenuOpen ? setMobileMenuOpen(false) : setMobileMenuOpen(true);
   }
 
   return (
@@ -29,7 +30,7 @@ function Navigation() {
           type="button"
           className="navigation-main__burger-button"
           onClick={handleToggleBurgerMenu}></button>
-        <div className="navigation-main__overlay">
+        <div className={`navigation-main__overlay ${mobileMenuOpen ? 'navigation-main__overlay_closed' : ''}`}>
           <div className="navigation-main__overlay-item">
             <button
               className="navigation-main__close-overlay-button"

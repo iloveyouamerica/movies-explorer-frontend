@@ -1,7 +1,8 @@
 import { React, useState} from 'react';
 import './FormAuth.css';
+import { EMAIL_FORMAT } from '../../utils/constants';
 
-function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
+function FormAuth({ isAuth, submitError, setError, onSubmit, hasNameInput, submitTitle }) {
   const [formValidity, setFormValidity] = useState(); // состояние валидации формы
   const [formData, setFormData] = useState({}); // значения полей формы
 
@@ -14,16 +15,12 @@ function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
     }
   };
 
-  // при любом изменении формы определим на каком элементе было вызвано событие
-  // проверим валидацию этого элемента
-  const handleFormChange = (event) => {
-    const formElement = event.target;
-    const spanError = document.querySelector(`.${formElement.id}`);
+  // активация кнопки сабмита
+  const activateSubmitButton = () => {
     const form = document.querySelector(".form-auth");
     const submitBtn = document.querySelector('.form-auth__submit');
 
-    // активация кнопки submit
-    if (form.checkValidity()) {
+    if(form.checkValidity()) {
       setFormValidity(true);
       submitBtn.removeAttribute('disabled');
       submitBtn.classList.add('form-auth__submit_active');
@@ -32,60 +29,86 @@ function FormAuth({ onSubmit, hasNameInput, submitTitle }) {
       submitBtn.setAttribute('disabled', '');
       submitBtn.classList.remove('form-auth__submit_active');
     }
+  }
 
-    // вывод ошибок валидации инпутов
+  // любое изменение полей формы
+  const handleFormChange = (event) => {
+    const formElement = event.target;
+    const spanError = document.querySelector(`.${formElement.id}`);
+
+    // проверка валидации инпутов
     if (!formElement.validity.valid) {
       spanError.textContent = formElement.validationMessage.split('.')[0];
+
+      if(formElement.type === "email") {
+        spanError.textContent = EMAIL_FORMAT; // Введите email в формате xxx@xxx.xx
+      }
     } else {
       spanError.textContent = '';
     }
+
+    // решение об активации сабмита
+    activateSubmitButton();
 
     // установка значений инпутов формы
     setFormData((prevFormData) => ({
       ...prevFormData,
       [formElement.name]: formElement.value,
     }));
-  };
+
+    // при редактировании формы обнулим текст ошибки ответа сервера (скроем)
+    setError('');
+  }
 
   return (
-    <form action="#" method="POST" className="form-auth" onChange={handleFormChange} onSubmit={handleFormSubmit} noValidate>
+    <form action="#"
+      method="POST"
+      className="form-auth"
+      onChange={handleFormChange}
+      onSubmit={handleFormSubmit}
+      noValidate>
       <div className="form-auth__area-wrapper">
         {hasNameInput && (
           <>
             <label htmlFor="input-name" className="form-auth__input-label">Имя</label>
             <input
               type="text"
-              name="input-name"
+              name="name"
               id="input-name"
               className="form-auth__input"
               minLength="2"
               maxLength="30"
-              required />
+              required
+              disabled={isAuth} />
             <span className="form-auth__span-error input-name"></span>
           </>
         )}
         <label htmlFor="input-email" className="form-auth__input-label">E-mail</label>
         <input
           type="email"
-          name="input-email"
+          name="email"
           id="input-email"
           className="form-auth__input"
+          pattern=".+@.+\..+"
           minLength="2"
-          maxLength="100"
-          required />
+          required
+          disabled={isAuth} />
         <span className="form-auth__span-error input-email"></span>
         <label htmlFor="input-password" className="form-auth__input-label">Пароль</label>
         <input
           type="password"
-          name="input-password"
+          name="password"
           id="input-password"
           className="form-auth__input"
           minLength="2"
-          maxLength="30"
-          required />
+          required
+          disabled={isAuth} />
         <span className="form-auth__span-error input-password"></span>
       </div>
-      <button type="submit" className="form-auth__submit" disabled>{submitTitle}</button>
+      <div className="form-auth__submit-wrapper">
+        {submitError && <span className="form-auth__error">{submitError}</span>}
+        <button type="submit" className="form-auth__submit" disabled={isAuth}>{submitTitle}</button>
+      </div>
     </form>
   );
 }
